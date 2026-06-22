@@ -8,8 +8,9 @@ Linear Models
 
 The following are a set of methods intended for regression in which
 the target value is expected to be a linear combination of the features.
-In mathematical notation, if :math:`\hat{y}` is the predicted
-value.
+In mathematical notation, the predicted value :math:`\hat{y}` can be
+written as:
+
 
 .. math::    \hat{y}(w, x) = w_0 + w_1 x_1 + ... + w_p x_p
 
@@ -212,11 +213,11 @@ Usage example::
     >>> import numpy as np
     >>> from sklearn import linear_model
     >>> reg = linear_model.RidgeCV(alphas=np.logspace(-6, 6, 13))
-    >>> reg.fit([[0, 0], [0, 0], [1, 1]], [0, .1, 1])
+    >>> reg.fit([[0, 0], [0, 0.1], [1, 1]], [0, -0.1, 1])
     RidgeCV(alphas=array([1.e-06, 1.e-05, 1.e-04, 1.e-03, 1.e-02, 1.e-01, 1.e+00, 1.e+01,
           1.e+02, 1.e+03, 1.e+04, 1.e+05, 1.e+06]))
     >>> reg.alpha_
-    np.float64(0.01)
+    np.float64(0.1)
 
 Specifying the value of the :term:`cv` attribute will trigger the use of
 cross-validation with :class:`~sklearn.model_selection.GridSearchCV`, for
@@ -1122,6 +1123,35 @@ the "saga" solver is usually faster (than "lbfgs"), in particular for low precis
 For large dataset, you may also consider using :class:`SGDClassifier`
 with `loss="log_loss"`, which might be even faster but requires more tuning.
 
+.. dropdown:: References
+
+  The following references explain some of the solvers.
+
+  * For "lbfgs", see documentation of
+    :func:`SciPy minimize <scipy:scipy.optimize.minimize>`
+
+  * "liblinear"
+
+    * Fan, R. E., Chang, K. W., Hsieh, C. J., Wang, X. R., & Lin, C. J. (2008).
+      LIBLINEAR: A library for large linear classification.
+      the Journal of machine Learning research, 9, 1871-1874.
+      https://www.jmlr.org/papers/volume9/fan08a/fan08a.pdf
+
+    * :doi:`Yu, H. F., Huang, F. L., & Lin, C. J. (2011).
+      Dual coordinate descent methods for logistic regression and maximum entropy
+      models. Machine Learning, 85(1), 41-75.
+      <10.1007/s10994-010-5221-8>`
+
+  * SAG -- :arxiv:`Schmidt, M., Le Roux, N., & Bach, F. (2017).
+    Minimizing finite sums with the stochastic average gradient.
+    Mathematical Programming, 162(1), 83-112.
+    <1309.2388>`
+
+  * SAGA -- :arxiv:`Defazio, A., Bach, F., & Lacoste-Julien, S. (2014).
+    SAGA: A fast incremental gradient method with support for non-strongly convex
+    composite objectives. Advances in neural information processing systems, 27.
+    <1407.0202>`
+
 .. _liblinear_differences:
 
 Differences between solvers
@@ -1448,7 +1478,7 @@ eta0=1.0)` can be used for PA-I or with ``learning_rate="pa2"`` for PA-II.
 .. dropdown:: References
 
   * `"Online Passive-Aggressive Algorithms"
-    <http://jmlr.csail.mit.edu/papers/volume7/crammer06a/crammer06a.pdf>`_
+    <https://jmlr.csail.mit.edu/papers/volume7/crammer06a/crammer06a.pdf>`_
     K. Crammer, O. Dekel, J. Keshat, S. Shalev-Shwartz, Y. Singer - JMLR 7 (2006)
 
 Robustness regression: outliers and modeling errors
@@ -1655,7 +1685,7 @@ better than an ordinary least squares in high dimension.
 
   .. [#f1] Xin Dang, Hanxiang Peng, Xueqin Wang and Heping Zhang: `Theil-Sen Estimators in a Multiple Linear Regression Model. <http://home.olemiss.edu/~xdang/papers/MTSE.pdf>`_
 
-  .. [#f2] T. Kärkkäinen and S. Äyrämö: `On Computation of Spatial Median for Robust Data Mining. <http://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf>`_
+  .. [#f2] T. Kärkkäinen and S. Äyrämö: `On Computation of Spatial Median for Robust Data Mining. <https://users.jyu.fi/~samiayr/pdf/ayramo_eurogen05.pdf>`_
 
   Also see the `Wikipedia page <https://en.wikipedia.org/wiki/Theil%E2%80%93Sen_estimator>`_
 
